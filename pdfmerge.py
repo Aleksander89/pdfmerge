@@ -2,6 +2,7 @@
 
 import PyPDF2
 import os
+import argparse
 
 """
 Merges multiple single- or multipage PDFs to one, single PDF-file. 
@@ -14,8 +15,23 @@ src_dir: Directory where input PDFs are located
 output_name: Name of the resulting PDF.
 """
 
+def get_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-s", "--source", dest="src_dir", help="Source destination for input PDF(s)", required=True)
+    parser.add_argument("-n", "--name", dest="new_name", help="Filename of output PDF", required=True)
+    args = parser.parse_args()
+
+    if not args.src_dir:
+        parser.error("[-] Please specify a source directory, use --help for more info.")
+    elif not args.new_name:
+        parser.error("[-] Please specify a new filename, use --help for more info.")
+    return args
+
+arguments = get_arguments()
+directory = arguments.src_dir
+new_filename = arguments.new_name
+
 pdfs_to_merge = []
-directory = 'D:\\Skole\\DAPE2101\\Oblig1'
 
 os.chdir(directory)
 
@@ -37,6 +53,6 @@ for file in pdfs_to_merge:
         pdf_writer.addPage(page_obj)
 
 
-pdf_output = open('s1874287DAPE2101Oblig1.pdf', 'wb')
+pdf_output = open(new_filename, 'wb')
 pdf_writer.write(pdf_output)
 pdf_output.close()
