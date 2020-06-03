@@ -17,7 +17,7 @@ output_name: Name of the resulting PDF.
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--source", dest="src_dir", help="Source destination for input PDF(s)", required=True)
+    parser.add_argument("-s", "--source", dest="src_dir", help="Source folder of input PDF(s)", required=True)
     parser.add_argument("-n", "--name", dest="new_name", help="Filename of output PDF", required=True)
     args = parser.parse_args()
 
@@ -31,6 +31,7 @@ def locate_pdfs_to_merge(directory):
     pdf_list = []
     
     os.chdir(directory)
+    print(directory)
     for filename in os.listdir(directory):
         if filename.endswith('.pdf'):
             pdf_list.append(filename)
@@ -40,7 +41,7 @@ def locate_pdfs_to_merge(directory):
 def merge_pdf(writer):
     for pdf_file in pdfs_to_merge:
         pdf_object = open(pdf_file, 'rb')
-        pdf_reader = PyPDF2.PdfFileReader(pdf_object)
+        pdf_reader = PyPDF2.PdfFileReader(pdf_object, strict=False)
     
         for page_num in range (0, pdf_reader.numPages):
             page_obj = pdf_reader.getPage(page_num)
