@@ -1,12 +1,12 @@
-from pdf_merge.helpers import validation
 import PyPDF2
 import os
+from pdf_merge.helpers import validation, formatting
 
 def run(directory, filename):
     try:
         if validation.is_valid_directory(directory):
             pdf_list = locate_pdfs_to_merge(directory)
-            new_filename = validation.format_filename(filename)
+            new_filename = formatting.format_filename(filename)
             write_pdf_to_disk(pdf_list, new_filename)
     except Exception as e:  
         print("Error: " + str(e))
