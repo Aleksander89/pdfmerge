@@ -3,13 +3,13 @@ import PyPDF2
 import os
 
 def run(directory, filename):
-    pdf_list = locate_pdfs_to_merge(directory)
-    
     try:
-        new_filename = validation.format_filename(filename)
-        write_pdf_to_disk(pdf_list, new_filename)
+        if validation.is_valid_directory(directory):
+            pdf_list = locate_pdfs_to_merge(directory)
+            new_filename = validation.format_filename(filename)
+            write_pdf_to_disk(pdf_list, new_filename)
     except Exception as e:  
-        print("Error:\n" + str(e))
+        print("Error: " + str(e))
 
 def locate_pdfs_to_merge(directory):
     pdf_list = []

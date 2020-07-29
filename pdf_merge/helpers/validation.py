@@ -1,6 +1,8 @@
+import os
+
 def format_filename(new_filename):
     name_list = new_filename.split('.')
-    fixed_filename = ""
+    fixed_filename = ''
 
     if len(name_list) < 2:
         fixed_filename = new_filename + '.pdf'
@@ -14,5 +16,10 @@ def format_filename(new_filename):
 
     return fixed_filename
 
+
 def is_valid_directory(directory):
-    pass
+    if os.name == 'nt':
+        if "\\" not in directory:
+            raise Exception(directory + ' is not a valid path. Try --help for more information.')
+
+    return os.path.isdir(directory)
