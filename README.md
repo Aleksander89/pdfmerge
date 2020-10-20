@@ -6,4 +6,4 @@ The input PDFs should therefore be renamed (for example 1.pdf, 2.pdf,..., n.pdf)
 
 <b>Example Usage:</b>
 
-python -m pdf_merge -s 'C:\PDFs\' -n new_name
+python -m pdf_merge --source 'C:\PDFs\' --name new_name
